@@ -29,7 +29,7 @@ const coffeeSchema = new mongoose.Schema({
   },
 });
 
-coffeeSchema.index({ title: "text" });
+coffeeSchema.index({ name: "text" });
 
 const CoffeeModel = mongoose.model("Coffee", coffeeSchema, "coffee-items");
 export default CoffeeModel;

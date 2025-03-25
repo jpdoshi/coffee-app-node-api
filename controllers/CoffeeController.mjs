@@ -3,7 +3,11 @@ import CoffeeModel from "../models/CoffeeModel.mjs";
 export const getCoffeeByCategory = async (req, res) => {
   try {
     const { category } = req.params;
-    const data = await CoffeeModel.find({ category });
+    let data;
+
+    if (category != "All")
+      data = await CoffeeModel.find({ category }).sort("name");
+    else data = await CoffeeModel.find().sort("name");
 
     if (data) {
       res.send(data);
@@ -26,7 +30,7 @@ export const getCategories = async (req, res) => {
         }
       }
 
-      res.send(categories);
+      res.send(categories.sort());
     }
   } catch (err) {
     res.status(500).send({ message: err.message });
