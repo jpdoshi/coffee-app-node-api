@@ -17,6 +17,21 @@ export const getCoffeeByCategory = async (req, res) => {
   }
 };
 
+export const getCoffeeById = async (req, res) => {
+  try {
+    const { _id } = req.params;
+    const coffee = await CoffeeModel.findById(_id);
+
+    if (coffee) {
+      res.send(coffee);
+    } else {
+      res.status(404).send({ error: "Could not find coffee" });
+    }
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
+};
+
 export const getCategories = async (req, res) => {
   try {
     const data = await CoffeeModel.find({}, { category: 1 });
